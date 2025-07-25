@@ -15,7 +15,7 @@ class SplashView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen<AsyncValue<void>>(splashDelayProvider, (prev, next) {
       next.when(
-        data: (_) => context.go(AppRoutes.welcome),
+        data: (_) => context.go(AppRoutes.login),
         loading: () {},
         error: (e, st) => debugPrint('Splash error: $e'),
       );
