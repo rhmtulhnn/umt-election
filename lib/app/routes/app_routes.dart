@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 
-import '../startup/splash/view/splash_view.dart';
-import '../startup/welcome/view/welcome_view.dart';
+import '../ui/startup/views/splash_view.dart';
+import '../ui/startup/views/welcome_view.dart';
 
 abstract class AppRoutes {
   static const splash = '/splash';

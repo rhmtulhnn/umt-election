@@ -1,25 +1,49 @@
 import 'package:flutter/material.dart';
 
-import 'package:google_fonts/google_fonts.dart';
-
 class AppFonts {
-  static TextStyle light({double size = 14, Color color = Colors.black,}) =>
-      GoogleFonts.poppins(
-          fontSize: size, fontWeight: FontWeight.w300, color: color);
+  static const String _fontFamily = 'SFProDisplay';
 
-  static TextStyle regular({double size = 14, Color color = Colors.black}) =>
-      GoogleFonts.poppins(
-          fontSize: size, fontWeight: FontWeight.w400, color: color);
+  static TextStyle regular({
+    double size = 14,
+    Color color = Colors.black,
+  }) =>
+      TextStyle(
+        fontFamily: _fontFamily,
+        fontWeight: FontWeight.w400,
+        fontSize: size,
+        color: color,
+      );
 
-  static TextStyle medium({double size = 14, Color color = Colors.black}) =>
-      GoogleFonts.poppins(
-          fontSize: size, fontWeight: FontWeight.w500, color: color);
+  static TextStyle medium({
+    double size = 14,
+    Color color = Colors.black,
+  }) =>
+      TextStyle(
+        fontFamily: _fontFamily,
+        fontWeight: FontWeight.w500,
+        fontSize: size,
+        color: color,
+      );
 
-  static TextStyle semiBold({double size = 14, Color color = Colors.black}) =>
-      GoogleFonts.poppins(
-          fontSize: size, fontWeight: FontWeight.w600, color: color);
+  static TextStyle semiBold({
+    double size = 14,
+    Color color = Colors.black,
+  }) =>
+      TextStyle(
+        fontFamily: _fontFamily,
+        fontWeight: FontWeight.w600,
+        fontSize: size,
+        color: color,
+      );
 
-  static TextStyle bold({double size = 14, Color color = Colors.black}) =>
-      GoogleFonts.poppins(
-          fontSize: size, fontWeight: FontWeight.w700, color: color);
+  static TextStyle bold({
+    double size = 14,
+    Color color = Colors.black,
+  }) =>
+      TextStyle(
+        fontFamily: _fontFamily,
+        fontWeight: FontWeight.w700,
+        fontSize: size,
+        color: color,
+      );
 }
