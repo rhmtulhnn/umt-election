@@ -1,8 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:umt_election/app/shared/buttons.dart';
 import 'package:umt_election/app/shared/colors.dart';
 import 'package:umt_election/app/shared/textfield.dart';
+import 'package:umt_election/app/ui/auth/views/register.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -52,7 +54,7 @@ class _LoginViewState extends State<LoginView> {
                     style: TextStyle(
                       fontSize: 24,
                       color: AppColors.primary,
-                      // fontFamily: 'sf-pro-display',
+                      fontFamily: 'SfProDisplay',
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -63,7 +65,7 @@ class _LoginViewState extends State<LoginView> {
                       fontSize: 16,
                       color: AppColors.black,
                       fontWeight: FontWeight.w400,
-                      // fontFamily: 'sf-pro-display',
+                      fontFamily: 'SfProDisplay',
                     ),
                   ),
                 ],
@@ -82,12 +84,16 @@ class _LoginViewState extends State<LoginView> {
               // Teks Lupa Kata Sandi
               Align(
                 alignment: Alignment.topRight,
-                child: Text(
-                  'Lupa Kata Sandi?',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.w500,
+                child: RichText(
+                  text: TextSpan(
+                    text: 'Lupa Kata Sandi?',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                    ..onTap = () => context.go('/resetPass')
                   ),
                 ),
               ),
@@ -103,7 +109,7 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
 
-              SizedBox(height: 20,),
+              SizedBox(height: 20),
               // Teks Tidak Punya Akun
               Center(
                 child: RichText(
@@ -116,10 +122,11 @@ class _LoginViewState extends State<LoginView> {
                         style: TextStyle(
                           fontSize: 16,
                           color: AppColors.primary,
-                          fontWeight: FontWeight.w600
+                          fontWeight: FontWeight.w600,
                         ),
 
-                        recognizer: TapGestureRecognizer()..onTap = (){},
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () => context.go('/register'),
                       ),
                     ],
                   ),
