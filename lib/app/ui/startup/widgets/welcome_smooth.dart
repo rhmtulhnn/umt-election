@@ -28,7 +28,7 @@ class WelcomeSmooth extends ConsumerWidget {
               width: double.infinity,
               height: 55.0,
               child: ElevatedButton(
-                onPressed: () => context.go('/signup'),
+                onPressed: () => context.go('/login'),
                 style: AppButtons.stylePrimary,
                 child: Text(
                   'Yuk Mulai',
