@@ -1,41 +1,34 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:umt_election/app/shared/buttons.dart';
 import 'package:umt_election/app/shared/colors.dart';
 import 'package:umt_election/app/shared/textfield.dart';
+import 'package:umt_election/app/ui/auth/providers/login_providers.dart';
 import 'package:umt_election/app/ui/auth/views/register.dart';
 
-class LoginView extends StatefulWidget {
+class LoginView extends ConsumerWidget {
   const LoginView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
-}
-
-class _LoginViewState extends State<LoginView> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
+
+    final email = ref.watch(emailProvider);
+    final password = ref.watch(passwordProvider);
+
+    final error = ref.watch(loginErrorProvider);
+
     return Scaffold(
       backgroundColor: AppColors.white,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(16.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               // Gambar
               Center(
                 child: Image.asset(
@@ -45,43 +38,42 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
 
-              // Teks Selamat Datang
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Masuk",
-                    style: TextStyle(
-                      fontSize: 24,
-                      color: AppColors.primary,
-                      fontFamily: 'SfProDisplay',
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-
-                  Text(
-                    "Halo! Senang Bertemu Dengan Anda Lagi.",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: AppColors.black,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'SfProDisplay',
-                    ),
-                  ),
-                ],
+              Text(
+                "Masuk",
+                style: TextStyle(
+                  fontSize: 24,
+                  color: AppColors.primary,
+                  fontFamily: 'SfProDisplay',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              Text(
+                "Halo! Senang Bertemu Dengan Anda Lagi.",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: AppColors.black,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'SfProDisplay',
+                ),
               ),
 
-              // Email Teks Field
-              TextFieldWidget(label: 'Email', controller: emailController),
+              // Email TextField
+              TextFieldWidget(
+                label: 'Email',
+                initialValue: email,
+                errorText: error['email'],
+                onChanged: (value) => ref.read(emailProvider.notifier).state = value,
+              ),
 
-              // Kata Sandi Teks Field
+              // Password TextField
               TextFieldWidget(
                 label: 'Kata Sandi',
-                controller: passwordController,
+                initialValue: password,
+                errorText: error['password'],
                 isPassword: true,
+                onChanged: (value) => ref.read(passwordProvider.notifier).state = value,
               ),
 
-              // Teks Lupa Kata Sandi
               Align(
                 alignment: Alignment.topRight,
                 child: RichText(
@@ -93,24 +85,27 @@ class _LoginViewState extends State<LoginView> {
                       fontWeight: FontWeight.w700,
                     ),
                     recognizer: TapGestureRecognizer()
-                    ..onTap = () => context.go('/resetPass')
+                      ..onTap = () => context.go('/resetPass'),
                   ),
                 ),
               ),
-
               SizedBox(height: 20),
 
-              // Button Masuk
               Center(
                 child: ElevatedButton(
                   style: AppButtons.stylePrimary,
-                  onPressed: () {},
+                  onPressed: () {
+                  // Tammbahkan route ke home
+
+
+                    print("Email: $email");
+                    print("Password: $password");
+                  },
                   child: const Text('Masuk'),
                 ),
               ),
-
               SizedBox(height: 20),
-              // Teks Tidak Punya Akun
+
               Center(
                 child: RichText(
                   text: TextSpan(
@@ -124,7 +119,6 @@ class _LoginViewState extends State<LoginView> {
                           color: AppColors.primary,
                           fontWeight: FontWeight.w600,
                         ),
-
                         recognizer: TapGestureRecognizer()
                           ..onTap = () => context.go('/register'),
                       ),
